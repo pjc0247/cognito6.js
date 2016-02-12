@@ -16,7 +16,7 @@ class CognitoDataset
   }
 
   *get(key){
-    var _this = this;
+    let _this = this;
     return new Promise(function(resolve, reject){
       _this.dataset.get(key, function(err, value) {
         if(err) reject(err);
@@ -26,7 +26,7 @@ class CognitoDataset
     });
   }
   *set(key, value){
-    var _this = this;
+    let _this = this;
     return new Promise(function(resolve, reject){
       _this.dataset.put(key, value, function(err, value) {
         if(err) reject(err);
@@ -36,7 +36,7 @@ class CognitoDataset
     });
   }
   *remove(key){
-    var _this = this;
+    let _this = this;
     return new Promise(function(resolve, reject){
       _this.dataset.put(key, function(err, value) {
         if(err) reject(err);
@@ -47,7 +47,7 @@ class CognitoDataset
   }
 
   *synchronize(){
-    var _this = this;
+    let _this = this;
     return new Promise(function(resolve, reject){
       _this.dataset.synchronize({
         onSuccess: function(dataset, newRecords) {
@@ -61,7 +61,7 @@ class CognitoDataset
   }
 
   subscribe(callback){
-    var params = {
+    let params = {
       IdentityPoolId: this.client.identityPoolId,
       IdentityId: AWS.config.credentials.identityId,
       DatasetName: this.dataset.datasetName,
@@ -74,7 +74,7 @@ class CognitoDataset
 class CognitoClient
 {
   static *create(identityPoolId){
-    var obj = new CognitoClient();
+    let obj = new CognitoClient();
 
     obj._identityPoolId = identityPoolId;
 
@@ -98,7 +98,7 @@ class CognitoClient
   }
 
   *openDataset(name){
-    var _this = this;
+    let _this = this;
     return new Promise(function(resolve, reject){
       _this.sync.openOrCreateDataset(name, function(err, dataset){
         if(err) reject(err);
@@ -108,8 +108,8 @@ class CognitoClient
     });
   }
   *deleteDataset(name){
-    var _this = this;
-    var params = {
+    let _this = this;
+    let params = {
       IdentityPoolId: this.identityPoolId,
       IdentityId: AWS.config.credentials.identityId,
       DatasetName: name
@@ -125,8 +125,8 @@ class CognitoClient
   }
 
   *bulkPublish(){
-    var _this = this;
-    var params = {
+    let _this = this;
+    let params = {
       IdentityPoolId: this.identityPoolId,
     };
     
@@ -139,8 +139,8 @@ class CognitoClient
     });
   }
   *listDatasets(){
-    var _this = this;
-    var params = {
+    let _this = this;
+    let params = {
       IdentityPoolId: this.identityPoolId,
       IdentityId: AWS.config.credentials.identityId
     };
