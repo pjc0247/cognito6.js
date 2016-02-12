@@ -5,16 +5,24 @@ class CognitoDataset
   constructor(client, dataset){
     this._client = client;
     this._dataset = dataset;
-    console.log(dataset);
   }
-
+  
+  /**
+  * 부모 CognitoClient 객체를 가져온다.
+  */
   get client() {
     return this._client;
   }
+  /**
+  * raw dataset 객체를 가져온다.
+  */
   get dataset() {
     return this._dataset;
   }
-
+  
+  /**
+  * 지정된 키에 매칭되는 값을 가져온다.
+  */
   *get(key){
     let _this = this;
     return new Promise(function(resolve, reject){
@@ -25,6 +33,9 @@ class CognitoDataset
       });
     });
   }
+  /**
+  * 지정된 키에 값을 설정한다.
+  */
   *set(key, value){
     let _this = this;
     return new Promise(function(resolve, reject){
@@ -35,6 +46,9 @@ class CognitoDataset
       });
     });
   }
+  /**
+  * 지정된 키에 매칭되는 값을 삭제한다.
+  */
   *remove(key){
     let _this = this;
     return new Promise(function(resolve, reject){
@@ -45,7 +59,10 @@ class CognitoDataset
       });
     });
   }
-
+  
+  /**
+  * 현재 데이터셋을 리모트와 동기화한다.
+  */
   *synchronize(){
     let _this = this;
     return new Promise(function(resolve, reject){
@@ -59,7 +76,7 @@ class CognitoDataset
       });
     });
   }
-
+  
   subscribe(callback){
     let params = {
       IdentityPoolId: this.client.identityPoolId,
@@ -97,6 +114,10 @@ class CognitoClient
     return this._rawSync;
   }
 
+  /**
+  * 현재 클라이언트에서 dataset을 오픈한다.
+  * 만약 지정된 이름의 dataset이 존재하지 않을 경우 새로 생성된다.
+  */
   *openDataset(name){
     let _this = this;
     return new Promise(function(resolve, reject){
@@ -107,6 +128,9 @@ class CognitoClient
       });
     });
   }
+  /**
+  * 지정된 이름의 dataset을 삭제한다.
+  */
   *deleteDataset(name){
     let _this = this;
     let params = {
@@ -123,7 +147,10 @@ class CognitoClient
       });
     });
   }
-
+  
+  /**
+  * 모든 dataset의 변경사항을 저장한다.
+  */
   *bulkPublish(){
     let _this = this;
     let params = {
@@ -138,6 +165,9 @@ class CognitoClient
       });
     });
   }
+  /**
+  * dataset의 목록을 가져온다.
+  */
   *listDatasets(){
     let _this = this;
     let params = {
